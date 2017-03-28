@@ -1,6 +1,7 @@
 FROM thimico/alpine
 
 RUN apk update && apk add -y pptpd iptables rsyslog
+RUN apk add openrc --no-cache
 
 COPY ./root/etc/pptpd.conf /etc/pptpd.conf
 COPY ./root/etc/ppp/pptpd-options /etc/ppp/pptpd-options
