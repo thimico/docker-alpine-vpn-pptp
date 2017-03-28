@@ -4,7 +4,7 @@ set -e
 
 # start logging
 #rc-service rsyslog start
-rc-service pptpd start
+#rc-service pptpd start
 
 # enable IP forwarding
 rc-service pptpconfig start
