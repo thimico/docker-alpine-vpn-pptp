@@ -3,12 +3,12 @@
 set -e
 
 # start logging
-service rsyslog start
-service pptpd start
+rc-service rsyslog start
+rc-service pptpd start
 
 # enable IP forwarding
-service pptpconfig start
-
+rc-service pptpconfig start
+ 
 # configure firewall
 #iptables -t nat -A POSTROUTING -s 10.99.99.0/24 -o eth0 -j MASQUERADE
 #iptables -A FORWARD -s 10.99.99.0/24 -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -j TCPMSS --set-mss 1356
