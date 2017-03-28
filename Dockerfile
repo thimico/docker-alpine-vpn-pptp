@@ -1,17 +1,14 @@
 FROM thimico/alpine
 
-RUN apk update && apk add -y pptpd iptables rsyslog
-RUN apk add openrc --no-cache
+RUN apk add --no-cache iptables ppp pptpd
 
-COPY ./root/etc/pptpd.conf /etc/pptpd.conf
-COPY ./root/etc/ppp/pptpd-options /etc/ppp/pptpd-options
-COPY ./root/etc/ppp/chap-secrets /etc/ppp/chap-secrets
+COPY /root/etc/pptpd.conf    /etc/
+COPY /root/etc/ppp/chap-secrets  /etc/ppp/
+COPY /root/etc/ppp/pptpd-options /etc/ppp/
 
-COPY pptpconfig /etc/init.d/pptpconfig
-RUN chmod 0777 /etc/init.d/pptpconfig
+EXPOSE 1723
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod 0777 /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["pptpd", "--fg"]
+CMD set -xe \
+    && iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE \
+    && pptpd \
+    && syslogd -n -O /dev/stdout
