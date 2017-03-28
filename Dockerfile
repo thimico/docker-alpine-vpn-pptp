@@ -2,9 +2,9 @@ FROM thimico/alpine
 
 RUN apk update && apk add -y pptpd iptables rsyslog
 
-COPY ./etc/pptpd.conf /etc/pptpd.conf
-COPY ./etc/ppp/pptpd-options /etc/ppp/pptpd-options
-COPY ./etc/ppp/chap-secrets /etc/ppp/chap-secrets
+COPY ./root/etc/pptpd.conf /etc/pptpd.conf
+COPY ./root/etc/ppp/pptpd-options /etc/ppp/pptpd-options
+COPY ./root/etc/ppp/chap-secrets /etc/ppp/chap-secrets
 
 COPY pptpconfig /etc/init.d/pptpconfig
 RUN chmod 0777 /etc/init.d/pptpconfig
