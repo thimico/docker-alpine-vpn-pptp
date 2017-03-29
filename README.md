@@ -19,6 +19,8 @@ username    *           password    *
 To start VPN server as a docker container run:
 
 ````
+docker run --name vpn-server -d --privileged -p 1723:1723 thimico/vpn-pptp
+
 docker run -d --privileged -p 1723:1723 -v {local_path_to_chap_secrets}:/etc/ppp/chap-secrets thimico/vpn-pptp
 ````
 
